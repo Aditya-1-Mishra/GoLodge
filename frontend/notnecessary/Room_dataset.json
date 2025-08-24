@@ -1,0 +1,287 @@
+
+
+
+[
+    {
+        "hotel_id": "H00001",
+        "hotel_name": "Hotel Grand",
+        "location": "New York, USA",
+        "room_type": "Executive Room",
+        "images": [
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb",
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+        ],
+        "price_per_night": 4440,
+        "amenities": [
+            "Wi-Fi",
+            "TV",
+            "Coffee Maker"
+        ],
+        "reviews": [
+            {
+                "reviewer": "Aiko",
+                "rating": 4.9,
+                "comment": "Wonderful stay with excellent service.",
+                "date": "2025-03-15"
+            }
+        ],
+        "availability": {
+            "2025-04-20": true,
+            "2025-04-21": false
+        }
+    },
+    {
+        "hotel_id": "H00002",
+        "hotel_name": "Hotel Oasis",
+        "location": "New York, USA",
+        "room_type": "Standard Room",
+        "images": [
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+        ],
+        "price_per_night": 14221,
+        "amenities": [
+            "Air Conditioning",
+            "Jacuzzi",
+            "Balcony"
+        ],
+        "reviews": [
+            {
+                "reviewer": "John",
+                "rating": 4.4,
+                "comment": "Loved the location and the ambiance.",
+                "date": "2025-03-15"
+            }
+        ],
+        "availability": {
+            "2025-04-20": false,
+            "2025-04-21": true
+        }
+    },
+    {
+        "hotel_id": "H00003",
+        "hotel_name": "Hotel Paradise",
+        "location": "Paris, France",
+        "room_type": "Deluxe Suite",
+        "images": [
+            "https://images.unsplash.com/photo-1578898888363-b8b8983369d4",
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+        ],
+        "price_per_night": 6866,
+        "amenities": [
+            "Wi-Fi",
+            "Air Conditioning",
+            "Room Service",
+            "Mini Bar"
+        ],
+        "reviews": [
+            {
+                "reviewer": "Thando",
+                "rating": 3.6,
+                "comment": "Wonderful stay with excellent service.",
+                "date": "2025-03-15"
+            }
+        ],
+        "availability": {
+            "2025-04-20": true,
+            "2025-04-21": true
+        }
+    },
+    {
+        "hotel_id": "H00004",
+        "hotel_name": "Hotel Grand",
+        "location": "Jaipur, India",
+        "room_type": "Executive Room",
+        "images": [
+            "https://images.unsplash.com/photo-1578898888363-b8b8983369d4",
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb"
+        ],
+        "price_per_night": 3827,
+        "amenities": [
+            "Wi-Fi",
+            "Gym Access",
+            "Swimming Pool"
+        ],
+        "reviews": [
+            {
+                "reviewer": "Thando",
+                "rating": 4.2,
+                "comment": "Loved the location and the ambiance.",
+                "date": "2025-03-15"
+            }
+        ],
+        "availability": {
+            "2025-04-20": false,
+            "2025-04-21": true
+        }
+    },
+    {
+        "hotel_id": "H00005",
+        "hotel_name": "Hotel Paradise",
+        "location": "Jaipur, India",
+        "room_type": "Single Room",
+        "images": [
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+        ],
+        "price_per_night": 8571,
+        "amenities": [
+            "Wi-Fi",
+            "Room Heater",
+            "Breakfast Included"
+        ],
+        "reviews": [
+            {
+                "reviewer": "John",
+                "rating": 3.8,
+                "comment": "Clean rooms and very comfortable.",
+                "date": "2025-03-15"
+            }
+        ],
+        "availability": {
+            "2025-04-20": true,
+            "2025-04-21": true
+        }
+    },
+    {
+        "hotel_id": "H00006",
+        "hotel_name": "Hotel Oasis",
+        "location": "New York, USA",
+        "room_type": "Family Suite",
+        "images": [
+            "https://images.unsplash.com/photo-1501117716987-c8e1ecb210d0",
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+        ],
+        "price_per_night": 11617,
+        "amenities": [
+            "Air Conditioning",
+            "Jacuzzi",
+            "Balcony"
+        ],
+        "reviews": [
+            {
+                "reviewer": "Aiko",
+                "rating": 4.5,
+                "comment": "Great value for the price!",
+                "date": "2025-03-15"
+            }
+        ],
+        "availability": {
+            "2025-04-20": false,
+            "2025-04-21": true
+        }
+    },
+    {
+        "hotel_id": "H00007",
+        "hotel_name": "Hotel Paradise",
+        "location": "Jaipur, India",
+        "room_type": "Deluxe Suite",
+        "images": [
+            "https://images.unsplash.com/photo-1501117716987-c8e1ecb210d0",
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb"
+        ],
+        "price_per_night": 8411,
+        "amenities": [
+            "Wi-Fi",
+            "TV",
+            "Coffee Maker"
+        ],
+        "reviews": [
+            {
+                "reviewer": "Aditya",
+                "rating": 4.1,
+                "comment": "Loved the location and the ambiance.",
+                "date": "2025-03-15"
+            }
+        ],
+        "availability": {
+            "2025-04-20": false,
+            "2025-04-21": true
+        }
+    },
+    {
+        "hotel_id": "H00008",
+        "hotel_name": "Hotel Grand",
+        "location": "Tokyo, Japan",
+        "room_type": "Standard Room",
+        "images": [
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb",
+            "https://images.unsplash.com/photo-1501117716987-c8e1ecb210d0"
+        ],
+        "price_per_night": 8046,
+        "amenities": [
+            "Wi-Fi",
+            "Gym Access",
+            "Swimming Pool"
+        ],
+        "reviews": [
+            {
+                "reviewer": "Emily",
+                "rating": 4.8,
+                "comment": "Clean rooms and very comfortable.",
+                "date": "2025-03-15"
+            }
+        ],
+        "availability": {
+            "2025-04-20": true,
+            "2025-04-21": true
+        }
+    },
+    {
+        "hotel_id": "H00009",
+        "hotel_name": "Hotel Grand",
+        "location": "Jaipur, India",
+        "room_type": "Executive Room",
+        "images": [
+            "https://images.unsplash.com/photo-1578898888363-b8b8983369d4",
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+        ],
+        "price_per_night": 6049,
+        "amenities": [
+            "Wi-Fi",
+            "Air Conditioning",
+            "Room Service",
+            "Mini Bar"
+        ],
+        "reviews": [
+            {
+                "reviewer": "Emily",
+                "rating": 5.0,
+                "comment": "Great value for the price!",
+                "date": "2025-03-15"
+            }
+        ],
+        "availability": {
+            "2025-04-20": false,
+            "2025-04-21": false
+        }
+    },
+    {
+        "hotel_id": "H00010",
+        "hotel_name": "Hotel Oasis",
+        "location": "Cape Town, South Africa",
+        "room_type": "Single Room",
+        "images": [
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb"
+        ],
+        "price_per_night": 6143,
+        "amenities": [
+            "Air Conditioning",
+            "Jacuzzi",
+            "Balcony"
+        ],
+        "reviews": [
+            {
+                "reviewer": "Aditya",
+                "rating": 4.6,
+                "comment": "Spacious room with a beautiful view.",
+                "date": "2025-03-15"
+            }
+        ],
+        "availability": {
+            "2025-04-20": false,
+            "2025-04-21": false
+        }
+    }
+]
