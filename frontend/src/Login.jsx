@@ -23,7 +23,10 @@ const Login = () => {
     );
 
     if (authenticate.data.token) {
-      localStorage.setItem('token', authenticate.data.token);
+      localStorage.setItem('userId', authenticate.data.userId);
+      localStorage.setItem('authToken',authenticate.data.token)
+      console.log(authenticate.data);
+          console.log(localStorage.getItem('userId'))
       alert(authenticate.data.message || "Login successful");
       Navigate('/Home'); // ✅ lowercase navigate
     } else {

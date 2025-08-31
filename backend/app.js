@@ -5,10 +5,10 @@ const jwt=require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const User=require('./models/usermodel'); // Import the User model
+const User=require('./models/usermodel');
 
 const app = express();
-app.use(cors({origin:'http://localhost:3000',credentials:true})); // allow requests from frontend
+app.use(cors({origin:'http://localhost:3000',credentials:true})); 
 app.use(express.json()); // so we can parse JSON requests
 app.use(express.urlencoded({ extended: true })); // to parse URL-encoded data
 app.use(cookieParser()); // to parse cookies
@@ -81,7 +81,8 @@ app.post('/Login',async function (req, res) {
       secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
       
     });
-    res.status(200).json({ success: true,token, message: 'Login successful' });
+    console.log(User._id)
+    res.status(200).json({ success: true,token, message: 'Login successful', userId: verify._id });
 
     } catch (error) {
     console.error("Login error:", error);
@@ -92,14 +93,47 @@ app.post('/Login',async function (req, res) {
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 app.get('/logout', (req, res) => {
-    res.clearCookie('token'); // Clear the cookie
+    res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: "strict"
+  }); // Clear the cookie
     res.status(200).json({ success: true, message: 'Logout successful' });
-    res.redirect('http://localhost:3000/Login'); // Redirect to the frontend
 });
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 const roomsRoute = require('./roomsRoute');
 app.use('/api/rooms', roomsRoute); 
+//-----------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------
+const bookingRoute = require('./bookingRoute');
+app.use('/api/Bookings', bookingRoute)
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+const bookingRouter = require('./bookingRouter');
+app.use('/api/Bookings', bookingRouter);
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+app.get('/Profile/:id', async (req, res) => {
+  const {id} = req.params;
+  try{
+    const details= await User.findById(id).select('-password');// Exclude password from the response
+    // console.log(details);  data is transfering to frontend
+    res.json(details);
+    if(!details){
+      return res.status(404).json({error:'User not found'});
+    }
+  }
+  catch(err){ 
+    res.status(500).json({error:'Server error'})
+  }
+})
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+const ProfileRoute=require('./ProfileRoute')
+app.use('/api/BookingTable', ProfileRoute)
+
 //-----------------------------------------------------------------------------------------
 
 

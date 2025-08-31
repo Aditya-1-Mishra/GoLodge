@@ -1,9 +1,11 @@
 import { React, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Background_main from '../images/Background_main.jpeg';
 import Navbar from './Navbar';
 
 const HOMEpor = () => {
+  const Navigate=useNavigate();
+
   const [rooms, setRooms] = useState([]); // fetched from backend
   const [Filters, setFilters] = useState({
     location: '',
@@ -66,7 +68,7 @@ const HOMEpor = () => {
         <Navbar />
       </div>
 
-      <div className="relative top-[100px] left-[120px] bg-white w-[330px] h-[500px] rounded-xl shadow-xl p-6">
+      <div className="relative top-[100px] left-[120px] bg-white w-[330px] h-[350px] rounded-xl shadow-xl p-6">
         <label htmlFor="locationInput" className="absolute top-6 left-8 text-lg text-black">
           DESTINATION
         </label>
@@ -117,7 +119,7 @@ const HOMEpor = () => {
           <option value="Bungalow">Bungalow</option>
         </select>
 
-        <label htmlFor="checkIn" className="absolute top-64 left-8 text-lg text-black">
+        {/* <label htmlFor="checkIn" className="absolute top-64 left-8 text-lg text-black">
           CHECK IN
         </label>
         <input
@@ -133,11 +135,11 @@ const HOMEpor = () => {
           id="checkOut"
           type="date"
           className="absolute top-90 left-8 mt-1 w-64 rounded-sm border border-gray-400 text-black bg-white text-center"
-        />
+        /> */}
 
         <button
           onClick={handleSearch}
-          className="absolute top-105 left-32 bg-cyan-700 text-white px-6 py-2 rounded-md hover:bg-cyan-600"
+          className="absolute top-70 left-32 bg-cyan-700 text-white px-6 py-2 rounded-md hover:bg-cyan-600"
         >
           Search
         </button>
@@ -149,8 +151,8 @@ const HOMEpor = () => {
             <div
               key={room._id}
               className="p-4 rounded shadow-md bg-white cursor-pointer hover:shadow-xl transition-shadow shadow-black duration-500"
+              onClick={() => Navigate(`/Booking/${room._id}`)}
             >
-              <Link to={`/Booking/${room._id}`}>
                 <img
                   src={room.images?.[0] || "/fallback.jpg"}
                   alt={room.name}
@@ -160,7 +162,6 @@ const HOMEpor = () => {
                 <p className="text-sm text-gray-600">
                   {room.roomType} | {room.accommodation} | {room.location}
                 </p>
-              </Link>
             </div>
           ))
         ) : (

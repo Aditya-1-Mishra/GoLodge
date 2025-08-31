@@ -1,11 +1,77 @@
 import React, { useState, useEffect } from 'react'; // ✅ Added missing imports
 import Navbar from './Navbar';
-import { useParams } from 'react-router-dom';
-import roomsData from '../../notnecessary/Data';
+import { useParams,useNavigate } from 'react-router-dom';
 
 const Booking = () => {
+  const Navigate=useNavigate();
   const { id } = useParams();
-  const room = roomsData.find(r => r.id === Number(id));
+  const [room, setRoom] = useState(null);
+
+
+  const [formdetails,setformdetails]=useState({
+    name:"",
+    mobile:"",
+    idtype:"Adhaar",
+    idnumber:"",  
+    checkin:"",
+    checkout:"",
+    paymentmode:"Credit Card",
+    userId:localStorage.getItem('userId') || "",
+    roomId : id
+  })
+
+  // for form
+  
+  const handleForm=(e)=>{
+    const {name,value}=e.target;
+    setformdetails({
+      ...formdetails,
+      [name]:value
+    })
+    console.log(formdetails);
+  }
+
+  // form details is to be sent for booking in backend
+  const submitForm=async(e)=>{
+    e.preventDefault();
+    if(!formdetails.name || !formdetails.mobile || !formdetails.idtype || !formdetails.idnumber || !formdetails.checkin || !formdetails.checkout || !formdetails.paymentmode){
+      alert("Please fill all the details");
+      return;
+    }
+   try{
+    const res=await fetch(`http://localhost:5000/api/Bookings/book/${id}`,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(formdetails)
+    })
+    console.log(localStorage.getItem('userId'));
+    alert("Room booked successfully");
+        Navigate('/Home');
+      
+   }
+   catch(err){
+    console.log(err)
+   }
+  }
+
+    useEffect(() => {
+    const fetchRoom = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/Bookings?roomId=${id}`);
+        const data = await res.json();
+
+        const flattenedReviews = data.reviews.flatMap(r => r.reviews);
+        setRoom({ ...data.room, reviews: flattenedReviews }); 
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchRoom();
+  }, [id]);
+
+  
 
   const [index, setIndex] = useState(0);
 
@@ -20,7 +86,7 @@ const Booking = () => {
   const currentReview = room?.reviews?.[index];
 
   return (
-    <div>
+    <div className='bg-gradient-to-l from-yellow-400 to-white min-h-screen'>
       {/* Navbar */}
       <div className='fixed top-0 left-0 right-0 z-50'>
         <Navbar />
@@ -42,7 +108,7 @@ const Booking = () => {
         </div>
 
         {/* Room Info Block */}
-        <div className="flex flex-col justify-start w-250 top-105 mx-6 absolute mt-20">
+        <div className="flex flex-col justify-start w-250 top-105 mx-6 absolute mt-20 ">
           <p className='text-3xl font-bold mb-2'>
             {room?.hotel_name || "No Hotel Name"}
           </p>
@@ -63,7 +129,7 @@ const Booking = () => {
 
         {/* Review Block */}
             <div>
-              <div className='relative rounded-sm justify-start w-[290px] border h-[160px] mx-6 mt-25'>
+              <div className='relative rounded-sm justify-start w-[290px] border h-[160px] mx-6 mt-25 bg-white'>
           {currentReview ? (
             <div className="flex items-center mb-2 p-2">
               <div className="flex flex-col">
@@ -78,29 +144,24 @@ const Booking = () => {
           )}
         </div>
         <div className='relative border rounded-sm justify-start w-[290px] h-[220px] mx-6 mt-10'>
-          <img src="https://newspaperads.ads2publish.com/wp-content/uploads/2018/04/american-tourister-swagpack-buy-n-american-tourister-bag-for-a-chance-to-meet-virat-ad-delhi-times-29-03-2018.png" id="img" className='w-full h-full object-contain'/>
+          <img src="https://newspaperads.ads2publish.com/wp-content/uploads/2018/04/american-tourister-swagpack-buy-n-american-tourister-bag-for-a-chance-to-meet-virat-ad-delhi-times-29-03-2018.png" id="img" className='w-full h-full object-cover'/>
         </div>
             </div>
         
 
         {/* Booking Form Block */}
-        <div className='flex flex-col justify-start border rounded-md w-[350px] px-4 h-[440px] mx-6 mt-20'>
+        <form className='flex flex-col justify-start border rounded-md w-[360px] px-4 h-[520px] mx-6 mt-20 bg-white'>
 
-          <span className='relative mx-4 my-5 text-lg font-bold'>
+          <label className='relative mx-4 my-5 text-lg font-bold'>
             Name:
-            <input type="text" className='border rounded-sm w-[200px] h-8 relative left-7 items-center font-normal px-5' placeholder='Enter your name' required />
-          </span>
+            <input type="text" className='border rounded-sm w-[200px] h-7 relative left-7 items-center font-normal px-5' name='name' placeholder='Enter your name' onChange={handleForm} required />
+          </label>
 
-          <span className='relative mx-4 my-0 text-lg font-bold'>
-            Email:
-            <input type="text" className='border rounded-sm w-[200px] h-8 relative left-8 items-center font-normal px-5' placeholder='Enter your email' />
-          </span>
-
-          <span className='relative mx-4 my-2 text-lg font-bold'>
+          <label className='relative mx-4 my-1 text-lg font-bold'>
             Mobile:
-          </span>
+          </label>
 
-          <div className="flex items-center gap-2">
+          <label className="flex items-center gap-2">
             <select className="relative left-8 px-1 h-8 border rounded-sm w-[60px]">
               <option value="91">91</option>
               <option value="36">36</option>
@@ -113,19 +174,39 @@ const Booking = () => {
             <input
               type="text"
               className="border rounded-sm w-[200px] h-8 relative left-8 items-center font-normal px-5"
+              name='mobile'
               placeholder=""
+              onChange={handleForm}
+              required
             />
+          </label>
+
+          <div className="relative mx-4 my-2">
+            <label className="text-lg font-bold block mb-2">
+              Identity Type:
+            </label>
+
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                name='idnumber'
+                className="border rounded-sm w-[200px] h-8 px-5 font-normal"
+                placeholder="Enter ID number"
+                onChange={handleForm}
+                required
+              />
+              <select className="border rounded-sm w-[120px] h-8 px-2 font-normal" name='idtype' onChange={handleForm} required>
+                <option value="adhaar">Adhaar</option>
+                <option value="passport">Passport</option>
+              </select>
+            </div>
           </div>
 
-          <span className='relative mx-4 my-2 text-lg font-bold'>
-            Passport id:
-          </span>
-          <input type="text" className='border rounded-sm w-[200px] h-8 relative left-25 items-center font-normal px-5' placeholder='' />
 
           <span className='relative mx-4 my-2 text-lg font-bold'>
             Select Payment Mode:
           </span>
-          <select className='border rounded-sm w-[200px] h-8 relative left-25 items-center font-normal px-6'>
+          <select className='border rounded-sm w-[200px] h-8 relative left-25 items-center font-normal px-6' onChange={handleForm} name='paymentmode' required>
             <option value="Credit Card">Credit Card</option>
             <option value="Debit Card">Debit Card</option>
             <option value="Net Banking">Net Banking</option>
@@ -133,18 +214,38 @@ const Booking = () => {
             <option value="Online Banking">Online Banking</option>
           </select>
 
-          <div className='flex flex-row justify-start'>
-            <input type='checkbox' className='relative mx-4 mt-2' />
-            <span className='relative text-md'>I agree to the terms and conditions</span>
+          <div className="relative mx-4 my-2">
+            <label className="text-lg font-bold block mb-2">
+              Check In / Check Out:
+            </label>
+
+            <div className="flex items-center gap-4">
+              <input
+                type="date"
+                name ="checkin"
+                className="border rounded-sm w-[150px] h-8 px-3 font-normal"
+                onChange={handleForm}
+                required
+              />
+              <input
+                type="date"
+                name='checkout'
+                className="border rounded-sm w-[150px] h-8 px-3 font-normal"
+                onChange={handleForm}
+                required
+              />
+            </div>
           </div>
 
-          <button className='bg-green-400 text-white rounded-md w-[200px] h-8 relative left-18 items-center font-normal px-6 mt-4 cursor-pointer'>
+          
+          <span className='relative left-5 my-4  text-3xl font-bold'>
+            Price : ${room?.price || 0} USD
+          </span>
+          
+          <button className='bg-green-400 text-white rounded-md w-[200px] h-8 relative left-18 items-center font-normal px-6 mt-4 cursor-pointer' onClick={submitForm}>
             Confirm & Continue
           </button>
-          <span className='relative top-30 left-20 mx-4 my-2 text-3xl font-bold'>
-            Price : ${room.price}  USD
-          </span>
-        </div>
+        </form>
 
       </div>
     </div>

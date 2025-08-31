@@ -3,14 +3,29 @@ import logo from '../images/logo.jpg'
 import def from '../images/def.svg'
 import { useState } from 'react'
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({aboutRef}) => {
+
+  const Navigate=useNavigate()
 
   const scrollToAboutUs = () => {
     if (aboutRef.current) {
       aboutRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const handleLogout = async () => {
+  try {
+    await axios.get("http://localhost:5000/logout", { withCredentials: true });
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userId");
+    Navigate("/Login");
+  } catch (err) {
+    console.error("Logout failed:", err);
+  }
+};
 
   
     const [drp,setdrp]= useState(false);
@@ -42,7 +57,7 @@ const Navbar = ({aboutRef}) => {
     <nav className="flex space-x-6">
         <Link to='/Home' className='mx-4 hover:bg-amber-200 cursor-pointer' style={{fontFamily:"Dancing Script, cursive",fontSize:'24px'}}>Home</Link>
         <a to='/Home/aboutus' className='mx-4 hover:bg-amber-200 cursor-pointer' style={{fontFamily:"Dancing Script, cursive",fontSize:'24px'}} onClick={scrollToAboutUs} >About us</a> 
-        <a className='mx-4 hover:bg-amber-200 cursor-pointer' style={{fontFamily:"Dancing Script, cursive",fontSize:'24px'}}>Contact us</a>
+        <Link to='/ContactUS' className='mx-4 hover:bg-amber-200 cursor-pointer' style={{fontFamily:"Dancing Script, cursive",fontSize:'24px'}}>Contact us</Link>
          
         <a className='mx-4 hover:bg-amber-200 cursor-pointer' style={{fontFamily:"Dancing Script, cursive",fontSize:'24px'}}>Offers</a> 
 
@@ -81,7 +96,8 @@ const Navbar = ({aboutRef}) => {
         <div className="absolute right-1 mt-2 w-22 top-11 border-2 bg-white rounded-md shadow-md" style={{zIndex:10}}>
           <ul className="py-2" >
             <li className="px-4 py-2 bg-white hover:bg-gray-100 cursor-pointer relative" style={{zIndex:10}}>Settings</li>
-            <Link to='/Login'><li className="px-4 py-2 bg-white hover:bg-gray-100 cursor-pointer relative" style={{zIndex:10}}>Logout</li></Link>
+            <Link to='/Profile'><li className="px-4 py-2 bg-white hover:bg-gray-100 cursor-pointer relative" style={{zIndex:10}}>Profile</li></Link>
+            <li className="px-4 py-2 bg-white hover:bg-gray-100 cursor-pointer relative" onClick={handleLogout} style={{zIndex:10}}>Logout</li>
           </ul>
         </div>
       )}
